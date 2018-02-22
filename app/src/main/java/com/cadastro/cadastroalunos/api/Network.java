@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by bruno on 21/02/2018.
+ * Created by matheus on 21/02/2018.
  */
 
 public class Network {

@@ -1,17 +1,28 @@
-package com.cadastro.cadastroalunos;
+package com.cadastro.cadastroalunos.pojo;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
- * Created by bruno on 21/02/2018.
+ * Created by matheus on 21/02/2018.
  */
 
-public class Endereco {
+public class Endereco implements Serializable {
 
+    @SerializedName("logradouro")
     private String logradouro;
+    @SerializedName("numero")
     private int numero;
+    @SerializedName("complemento")
     private String complemento;
+    @SerializedName("bairro")
     private String bairro;
+    @SerializedName("cep")
     private String cep;
+    @SerializedName("cidade")
     private String cidade;
+    @SerializedName("estado")
     private String estado;
 
     public Endereco(String logradouro, int numero, String complemento, String bairro, String cep, String cidade, String estado) {

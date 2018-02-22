@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Pesquisar" />
+            android:hint="Pesquisar por ID" />
 
         <Button
             android:id="@+id/bt_search"
@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
+            android:src="@drawable/ic_add"
             app:layout_anchor="@+id/rv_list"
             app:layout_anchorGravity="right|bottom" />
 

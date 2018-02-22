@@ -1,18 +1,24 @@
-package com.cadastro.cadastroalunos;
+package com.cadastro.cadastroalunos.pojo;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 /**
- * Created by bruno on 21/02/2018.
+ * Created by matheus on 21/02/2018.
  */
 
 public class Aluno implements Serializable{
 
-
+    @SerializedName("id")
     private String id;
+    @SerializedName("cpf")
     private String cpf;
+    @SerializedName("nome")
     private String nome;
+    @SerializedName("idade")
     private int idade;
+    @SerializedName("endereco")
     private Endereco endereco;
 
     public Aluno() {

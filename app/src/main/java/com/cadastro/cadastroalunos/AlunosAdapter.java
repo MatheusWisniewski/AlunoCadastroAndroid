@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cadastro.cadastroalunos.pojo.Aluno;
+
 import java.util.List;
 
 /**
- * Created by bruno on 21/02/2018.
+ * Created by matheus on 21/02/2018.
  */
 
 public class AlunosAdapter extends RecyclerView.Adapter<AlunoViewHolder> {

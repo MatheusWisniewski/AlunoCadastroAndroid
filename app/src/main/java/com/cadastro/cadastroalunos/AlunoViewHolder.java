@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.nio.channels.InterruptedByTimeoutException;
+import com.cadastro.cadastroalunos.pojo.Aluno;
 
 /**
- * Created by bruno on 21/02/2018.
+ * Created by matheus on 21/02/2018.
  */
 
 public class AlunoViewHolder extends RecyclerView.ViewHolder {
