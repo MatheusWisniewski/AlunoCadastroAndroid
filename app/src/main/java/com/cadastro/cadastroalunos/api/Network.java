@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Network {
-    private static final String BASE_URL = "http://192.241.173.247/api/v1/";
+    private static final String BASE_URL = "http://192.168.1.19:8084/api-web/api/";
 
     private OkHttpClient getJamesHttpClient() {
         OkHttpClient httpClient = new OkHttpClient();

@@ -52,30 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         setupListeners();
 
-        // ---------------------------------------
-        // teste
-        final Aluno aluno = new Aluno();
-        aluno.setNome("Matheus");
-        aluno.setId("1");
-        aluno.setCpf("08801521928");
-        aluno.setIdade(25);
-        aluno.setEndereco(new Endereco("rua 1", 2, "casa 22", "bairro legal", "81270010", "Curitiba", "Paraná"));
-        todosAlunos.add(aluno);
+//        mock();
+    }
 
-        Aluno aluno2 = new Aluno();
-        aluno2.setNome("Bruno");
-        aluno2.setId("2");
-        aluno2.setCpf("99999999");
-        aluno2.setIdade(25);
-        aluno2.setEndereco(new Endereco("rua 2", 3, "casa 32", "bairro chato", "81270010", "Curitiba", "Paraná"));
-
-        todosAlunos.add(aluno2);
-
-        adapter = new AlunosAdapter(todosAlunos);
-        rvList.setAdapter(adapter);
-        // ---------------------------------------------
-
-        //getAlunos();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAlunos();
     }
 
     private void setupViews() {
@@ -126,23 +109,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAlunos() {
-        webApiInterface.getAlunos().enqueue(new Callback<Alunos>() {
+        webApiInterface.getAlunos().enqueue(new Callback<List<Aluno>>() {
             @Override
-            public void onResponse(Call<Alunos> call, Response<Alunos> response) {
+            public void onResponse(Call<List<Aluno>> call, Response<List<Aluno>> response) {
 
                 if (response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Get alunos feito com sucesso!", Toast.LENGTH_SHORT).show();
 
-                    todosAlunos = response.body().getAlunos();
+                    todosAlunos = response.body();
                     adapter = new AlunosAdapter(todosAlunos);
                     rvList.setAdapter(adapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<Alunos> call, Throwable t) {
+            public void onFailure(Call<List<Aluno>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void mock() {
+                // ---------------------------------------
+        // teste
+        final Aluno aluno = new Aluno();
+        aluno.setNome("Matheus");
+        aluno.setId("1");
+        aluno.setCpf("08801521928");
+        aluno.setIdade(25);
+        aluno.setEndereco(new Endereco("rua 1", 2, "casa 22", "bairro legal", "81270010", "Curitiba", "Paraná"));
+        todosAlunos.add(aluno);
+
+        Aluno aluno2 = new Aluno();
+        aluno2.setNome("Bruno");
+        aluno2.setId("2");
+        aluno2.setCpf("99999999");
+        aluno2.setIdade(25);
+        aluno2.setEndereco(new Endereco("rua 2", 3, "casa 32", "bairro chato", "81270010", "Curitiba", "Paraná"));
+
+        todosAlunos.add(aluno2);
+
+        adapter = new AlunosAdapter(todosAlunos);
+        rvList.setAdapter(adapter);
+        // ---------------------------------------------
     }
 }

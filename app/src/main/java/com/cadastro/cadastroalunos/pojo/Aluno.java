@@ -32,7 +32,6 @@ public class Aluno implements Serializable{
         this.endereco = endereco;
     }
 
-
     public String getId() {
         return id;
     }

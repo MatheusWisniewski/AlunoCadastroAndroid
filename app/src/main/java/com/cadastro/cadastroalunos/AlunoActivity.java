@@ -3,7 +3,6 @@ package com.cadastro.cadastroalunos;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,9 +11,7 @@ import android.widget.Toast;
 import com.cadastro.cadastroalunos.api.Network;
 import com.cadastro.cadastroalunos.api.WebApiInterface;
 import com.cadastro.cadastroalunos.pojo.Aluno;
-import com.cadastro.cadastroalunos.pojo.RespostaAtualizar;
-import com.cadastro.cadastroalunos.pojo.RespostaCriar;
-import com.cadastro.cadastroalunos.pojo.RespostaDeletar;
+import com.cadastro.cadastroalunos.pojo.Endereco;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,9 +79,9 @@ public class AlunoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 webApiInterface.deleteAluno(aluno.getId())
-                        .enqueue(new Callback<RespostaDeletar>() {
+                        .enqueue(new Callback<Aluno>() {
                             @Override
-                            public void onResponse(Call<RespostaDeletar> call, Response<RespostaDeletar> response) {
+                            public void onResponse(Call<Aluno> call, Response<Aluno> response) {
                                 if (response.isSuccessful()) {
                                     Toast.makeText(AlunoActivity.this, "Deletado com sucesso!", Toast.LENGTH_SHORT).show();
                                     finish();
@@ -92,7 +89,7 @@ public class AlunoActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<RespostaDeletar> call, Throwable t) {
+                            public void onFailure(Call<Aluno> call, Throwable t) {
                                 Toast.makeText(AlunoActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -149,20 +146,25 @@ public class AlunoActivity extends AppCompatActivity {
 
     private void salvarAluno() {
         webApiInterface.postCriar(
-                etNome.getText().toString(),
-                etCpf.getText().toString(),
-                Integer.parseInt(etIdade.getText().toString()),
-                etEstado.getText().toString(),
-                etCidade.getText().toString(),
-                etBairro.getText().toString(),
-                etLogradouro.getText().toString(),
-                Integer.parseInt(etNumero.getText().toString()),
-                etComplemento.getText().toString(),
-                etCep.getText().toString()
+                new Aluno(
+                        "Novo",
+                        etCpf.getText().toString(),
+                        etNome.getText().toString(),
+                        Integer.parseInt(etIdade.getText().toString()),
+                        new Endereco(
+                                etLogradouro.getText().toString(),
+                                Integer.parseInt(etNumero.getText().toString()),
+                                etComplemento.getText().toString(),
+                                etBairro.getText().toString(),
+                                etCep.getText().toString(),
+                                etCidade.getText().toString(),
+                                etEstado.getText().toString()
+                        )
+                )
         )
-        .enqueue(new Callback<RespostaCriar>() {
+        .enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<RespostaCriar> call, Response<RespostaCriar> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AlunoActivity.this, "Criado com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -170,7 +172,7 @@ public class AlunoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RespostaCriar> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(AlunoActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -179,20 +181,26 @@ public class AlunoActivity extends AppCompatActivity {
     private void atualizarAluno() {
         webApiInterface.putAtualizar(
                 aluno.getId(),
-                etNome.getText().toString(),
-                etCpf.getText().toString(),
-                Integer.parseInt(etIdade.getText().toString()),
-                etEstado.getText().toString(),
-                etCidade.getText().toString(),
-                etBairro.getText().toString(),
-                etLogradouro.getText().toString(),
-                Integer.parseInt(etNumero.getText().toString()),
-                etComplemento.getText().toString(),
-                etCep.getText().toString()
+                new Aluno(
+                    aluno.getId(),
+                    etCpf.getText().toString(),
+                    etNome.getText().toString(),
+                    Integer.parseInt(etIdade.getText().toString()),
+                    new Endereco(
+                            etLogradouro.getText().toString(),
+                            Integer.parseInt(etNumero.getText().toString()),
+                            etComplemento.getText().toString(),
+                            etBairro.getText().toString(),
+                            etCep.getText().toString(),
+                            etCidade.getText().toString(),
+                            etEstado.getText().toString()
+                    )
+                )
+
         )
-        .enqueue(new Callback<RespostaAtualizar>() {
+        .enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<RespostaAtualizar> call, Response<RespostaAtualizar> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AlunoActivity.this, "Atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -200,7 +208,7 @@ public class AlunoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RespostaAtualizar> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(AlunoActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

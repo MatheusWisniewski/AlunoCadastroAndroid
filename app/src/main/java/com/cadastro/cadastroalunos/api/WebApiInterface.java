@@ -1,10 +1,8 @@
 package com.cadastro.cadastroalunos.api;
 
 import com.cadastro.cadastroalunos.pojo.Aluno;
-import com.cadastro.cadastroalunos.pojo.Alunos;
-import com.cadastro.cadastroalunos.pojo.RespostaAtualizar;
-import com.cadastro.cadastroalunos.pojo.RespostaCriar;
-import com.cadastro.cadastroalunos.pojo.RespostaDeletar;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -22,7 +20,7 @@ import retrofit2.http.Query;
 public interface WebApiInterface {
 
     @GET("alunos")
-    Call<Alunos> getAlunos();
+    Call<List<Aluno>> getAlunos();
 
     @GET("alunos/{id}")
     Call<Aluno> getAluno(
@@ -31,37 +29,19 @@ public interface WebApiInterface {
 
     @FormUrlEncoded
     @POST("alunos")
-    Call<RespostaCriar> postCriar(
-            @Field("nome") String nome,
-            @Field("cpf") String cpf,
-            @Field("idade") int idade,
-            @Field("estado") String estado,
-            @Field("cidade") String cidade,
-            @Field("bairro") String bairro,
-            @Field("logradouro") String logradouro,
-            @Field("numero") int numero,
-            @Field("complemento") String complemento,
-            @Field("cep") String cep
+    Call<String> postCriar(
+            @Field("aluno") Aluno aluno
     );
 
     @FormUrlEncoded
-    @PUT("alunos")
-    Call<RespostaAtualizar> putAtualizar(
-            @Field("id") String id,
-            @Field("nome") String nome,
-            @Field("cpf") String cpf,
-            @Field("idade") int idade,
-            @Field("estado") String estado,
-            @Field("cidade") String cidade,
-            @Field("bairro") String bairro,
-            @Field("logradouro") String logradouro,
-            @Field("numero") int numero,
-            @Field("complemento") String complemento,
-            @Field("cep") String cep
+    @PUT("alunos/{matricula}")
+    Call<String> putAtualizar(
+            @Query("matricula") String id,
+            @Field("aluno") Aluno aluno
     );
 
     @DELETE("alunos/{id}")
-    Call<RespostaDeletar> deleteAluno(
+    Call<Aluno> deleteAluno(
             @Query("id") String matricula
     );
 }
